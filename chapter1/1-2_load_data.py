@@ -3,6 +3,9 @@
 # code for python3
 import pandas as pd
 
+# set the MAX num of columns that will be displayed at terminal
+pd.set_option('display.max_columns', 100)
+
 customer_master = pd.read_csv('customer_master.csv')
 # print(customer_master.head())
 # print()
