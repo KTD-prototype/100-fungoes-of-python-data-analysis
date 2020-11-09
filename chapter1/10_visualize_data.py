@@ -77,8 +77,8 @@ join_data["payment_date"] = pd.to_datetime(join_data["payment_date"])
 join_data["payment_month"] = join_data["payment_date"].dt.strftime("%Y%m")
 # print(join_data[["payment_date", "payment_month"]].head())
 
-# export join_data as CSV file
-join_data.to_csv("join_data.csv")
+# # export join_data as CSV file
+# join_data.to_csv("join_data.csv")
 
 # # group data by month and sum it
 # grouped_data = join_data.groupby("payment_month").sum()["price"]
