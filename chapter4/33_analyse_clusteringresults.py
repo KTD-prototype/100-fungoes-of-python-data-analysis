@@ -3,6 +3,8 @@
 # code for python3
 
 import pandas as pd
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
 from dateutil.relativedelta import relativedelta
 import matplotlib.pyplot as plt
 

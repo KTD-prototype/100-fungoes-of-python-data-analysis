@@ -47,8 +47,21 @@ x_pca = pca.transform(X) # execute PCA, 2nd step
 pca_df = pd.DataFrame(x_pca) # contain analysed data to new dataframe:pca_df
 pca_df["cluster"] = customer_clustering["cluster"] # add clusterized data to new data
 
-# visualize
-for i in customer_clustering["cluster"].unique():
-    tmp = pca_df.loc[pca_df["cluster"]==i]
-    plt.scatter(tmp[0], tmp[1])
-plt.show()
+# # visualize
+# for i in customer_clustering["cluster"].unique():
+#     tmp = pca_df.loc[pca_df["cluster"]==i]
+#     plt.scatter(tmp[0], tmp[1])
+# plt.show()
+
+# compare between clustered data and whether each customers are still in our membership
+customer_clustering = pd.concat([customer_clustering, customer], axis = 1)
+# analyse clusters by whether those customers are deleted from membership or not
+customer_clustering.groupby(["cluster", "is_deleted"], as_index=False).count()[["cluster", "is_deleted", "customer_id"]]
+# print(customer_clustering.groupby(["cluster", "is_deleted"], as_index=False).count()[["cluster", "is_deleted", "customer_id"]])
+# analyse clusters by whether those customers are using our gym routinely
+# customer_clustering.groupby(["cluster", "routine_flg"], as_index=False).count()[["cluster", "routine_flg", "customer_id"]]
+print(customer_clustering.groupby(["cluster", "routine_flg"], as_index=False).count()[["cluster", "routine_flg", "customer_id"]])
+# print(customer_clustering.head())
+
+# # export data as csv
+# customer_clustering.to_csv("customer_clustering.csv", index=False)
