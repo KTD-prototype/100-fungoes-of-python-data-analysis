@@ -91,17 +91,28 @@ def active_node_coloring(list_active):
             list_color.append("r")
         else:
             list_color.append("k")
-    print(len(list_color))
+    # print(len(list_color))
     return list_color
 
-t = 0
-nx.draw_networkx(G, font_color = "w", node_color = active_node_coloring(list_timeSeries[t]))
-plt.show()
+# t = 0
+# nx.draw_networkx(G, font_color = "w", node_color = active_node_coloring(list_timeSeries[t]))
+# plt.show()
 
-t = 10
-nx.draw_networkx(G, font_color = "w", node_color = active_node_coloring(list_timeSeries[t]))
-plt.show()
+# t = 10
+# nx.draw_networkx(G, font_color = "w", node_color = active_node_coloring(list_timeSeries[t]))
+# plt.show()
 
-t = 99
-nx.draw_networkx(G, font_color = "w", node_color = active_node_coloring(list_timeSeries[t]))
+# t = 99
+# nx.draw_networkx(G, font_color = "w", node_color = active_node_coloring(list_timeSeries[t]))
+# plt.show()
+
+
+############################################
+# visualize information transision by graph#
+############################################
+list_timeSeries_num = []
+for i in range(len(list_timeSeries)):
+    list_timeSeries_num.append(sum(list_timeSeries[i]))
+
+plt.plot(list_timeSeries_num)
 plt.show()

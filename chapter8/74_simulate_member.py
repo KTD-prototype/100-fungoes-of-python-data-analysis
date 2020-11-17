@@ -91,17 +91,65 @@ def active_node_coloring(list_active):
             list_color.append("r")
         else:
             list_color.append("k")
-    print(len(list_color))
+    # print(len(list_color))
     return list_color
 
-t = 0
-nx.draw_networkx(G, font_color = "w", node_color = active_node_coloring(list_timeSeries[t]))
-plt.show()
+# t = 0
+# nx.draw_networkx(G, font_color = "w", node_color = active_node_coloring(list_timeSeries[t]))
+# plt.show()
 
-t = 10
-nx.draw_networkx(G, font_color = "w", node_color = active_node_coloring(list_timeSeries[t]))
-plt.show()
+# t = 10
+# nx.draw_networkx(G, font_color = "w", node_color = active_node_coloring(list_timeSeries[t]))
+# plt.show()
 
-t = 99
-nx.draw_networkx(G, font_color = "w", node_color = active_node_coloring(list_timeSeries[t]))
+# t = 99
+# nx.draw_networkx(G, font_color = "w", node_color = active_node_coloring(list_timeSeries[t]))
+# plt.show()
+
+
+############################################
+# visualize information transision by graph#
+############################################
+list_timeSeries_num = []
+for i in range(len(list_timeSeries)):
+    list_timeSeries_num.append(sum(list_timeSeries[i]))
+
+# plt.plot(list_timeSeries_num)
+# plt.show()
+
+############################################
+# simulate the num of member of our gym    #
+############################################
+def simulate_population(num, list_active, percent_percolation, percent_disappearence, df_links):
+    # diffusion
+    for i in range(num):
+        if list_active[i] == 1:
+            for j in range(num):
+                if df_links.iloc[i][j] == 1:
+                    if determine_link(percent_percolation) == 1:
+                        list_active[j] = 1
+    # dissapearence
+    for i in range(num):
+        if determine_link(percent_disappearence) == 1:
+            list_active[i] = 0
+    return list_active
+
+percent_percolation = 0.1
+# percent_disappearence = 0.05
+percent_disappearence = 0.2
+T_NUM = 100
+NUM = len(df_links.index)
+list_active = np.zeros(NUM)
+list_active[0] = 1
+list_timeSeries = []
+for t in range(T_NUM):
+    list_active = simulate_population(NUM, list_active, percent_percolation, percent_disappearence, df_links)
+    list_timeSeries.append(list_active.copy())
+
+# draw graph
+list_timeSeries_num = []
+for i in range(len(list_timeSeries)):
+    list_timeSeries_num.append(sum(list_timeSeries[i]))
+
+plt.plot(list_timeSeries_num)
 plt.show()
